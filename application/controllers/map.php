@@ -494,11 +494,14 @@ class Map extends CI_Controller {
                     }
                     $record_array = array_merge($record_array, array('image' => $imagess));
                 }
-                $record_array = array_merge($record_array, array('form_id' => $v['form_id'], 'actions' => $v['id']));
-                $record_array = array_merge($record_array, array('created_datetime' => $v['created_datetime'], 'actions' => $v['id']));
+                $record_array = array_merge($record_array, array('form_id' => $v['form_id'], 
+                'actions' => $v['id']));
+                $record_array = array_merge($record_array, array('created_datetime' => 
+                $v['created_datetime'], 'actions' => $v['id']));
                 $record_array_final[] = $record_array;
             }
-            $schema_list = $this->form_results_model->getTableHeadingsFromSchema($table_name);
+            $schema_list = 
+            $this->form_results_model->getTableHeadingsFromSchema($table_name);
             $heading_query = array_merge($heading_query, $schema_list);
         }
         foreach ($heading_query as $key => $value) {
@@ -511,7 +514,8 @@ class Map extends CI_Controller {
                 }
             }
         }
-        $table_headers_array = array_merge($table_headers_array, array('created_datetime'));
+        $table_headers_array = array_merge($table_headers_array, 
+        array('created_datetime'));
         $table_headers_array = array_merge($table_headers_array, array('actions'));
         $data['headings'] = $table_headers_array;
         $data['form'] = $record_array_final;
@@ -531,7 +535,8 @@ class Map extends CI_Controller {
         $selected_form = $this->form_model->get_form($form_id);
         $filter_attribute = array();
         if ($selected_form['filter'] != '') {
-            $filter_rec = array_filter(array_map('trim', explode(',', $selected_form['filter'])));
+            $filter_rec = array_filter(array_map('trim', 
+            explode(',', $selected_form['filter'])));
             foreach ($filter_rec as $key => $value) {
                 array_push($filter_attribute, $value);
             }
@@ -544,7 +549,8 @@ class Map extends CI_Controller {
         $login_district = $session_data['login_district'];
         $heading_array = array();
         $record_array_final = array();
-        $results = $this->form_results_model->get_multiple_form_results_pagination($form_list, $login_district, $this->perPage);
+        $results = $this->form_results_model->get_multiple_form_results_pagination($form_list, 
+        $login_district, $this->perPage);
         foreach ($results as $k => $v) {
             $record_array = array();
             $result_json = $v['record'];
@@ -563,10 +569,12 @@ class Map extends CI_Controller {
                 $record_array = array_merge($record_array, array($key => $value));
             }
 
-            $record_array = array_merge($record_array, array('created_datetime' => $v['created_datetime'], 'actions' => $v['id']));
+            $record_array = array_merge($record_array, array('created_datetime' => 
+            $v['created_datetime'], 'actions' => $v['id']));
             $record_array_final[] = $record_array;
         }
-        $heading_array = array_merge($heading_array, array('created_datetime', 'actions'));
+        $heading_array = array_merge($heading_array, 
+        array('created_datetime', 'actions'));
         $data['headings'] = $heading_array;
         $data['form'] = $record_array_final;
         $data['active_tab'] = 'app';
@@ -586,7 +594,8 @@ class Map extends CI_Controller {
         $selected_form = $this->form_model->get_form($form_id);
         $filter_attribute = array();
         if ($selected_form['filter'] != '') {
-            $filter_rec = array_filter(array_map('trim', explode(',', $selected_form['filter'])));
+            $filter_rec = array_filter(array_map('trim', 
+            explode(',', $selected_form['filter'])));
             foreach ($filter_rec as $key => $value) {
                 array_push($filter_attribute, $value);
             }
