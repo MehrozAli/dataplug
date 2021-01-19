@@ -763,7 +763,8 @@ class Map extends CI_Controller {
         $slug = $slug_id;
         if ($this->session->userdata('logged_in')) {
             if (!$this->acl->hasPermission('form', 'view')) {
-                $this->session->set_flashdata('validate', array('message' => "You don't have enough permissions to do this task.", 'type' => 'warning'));
+                $this->session->set_flashdata('validate', array('message' 
+                => "You don't have enough permissions to do this task.", 'type' => 'warning'));
                 redirect(base_url() . 'application-map/' . $slug);
             }
             /** multiple form handling system statrs * */
@@ -808,7 +809,8 @@ class Map extends CI_Controller {
                 $data['search_text'] = $search_text;
                 if ($search_text) {
                     $search_text = mysql_real_escape_string($search_text);
-                    $search_text = str_replace(array('~', '<', '>', '$', '%', '|', '^', '*'), array(' '), $search_text);
+                    $search_text = str_replace(array('~', '<', '>', '$', '%', '|', '^', '*'), 
+                    array(' '), $search_text);
                     $search_text = str_replace('/', '\\\\/', $search_text);
                     $search_text = trim($search_text);
                 }
@@ -819,9 +821,11 @@ class Map extends CI_Controller {
                 $final_send = array();
                 foreach ($forms_list as $final_view) {
                     if (in_array($final_view['form_id'], $form_list_posted)) {
-                        $final_send = array_merge($final_send, array($final_view['form_name'] => $final_view['form_id']));
+                        $final_send = array_merge($final_send, array($final_view['form_name'] => 
+                        $final_view['form_id']));
                     }
-                    $view_list = array_merge($view_list, array($final_view['form_name'] => $final_view['form_id']));
+                    $view_list = array_merge($view_list, array($final_view['form_name'] => 
+                    $final_view['form_id']));
                 }
                 $view_list = array_flip($view_list);
                 $data['form_lists'] = $view_list;
@@ -847,7 +851,10 @@ class Map extends CI_Controller {
                     $data['selected_date_from'] = "";
                 }
                 if (strtotime($to_date) > strtotime($from_date)) {
-                    $this->session->set_flashdata('validate', array('message' => 'Invalid Date selection. From Date should be greater than To Date.', 'type' => 'warning'));
+                    $this->session->set_flashdata('validate', 
+                    array('message' => 
+                    'Invalid Date selection. From Date should be greater than To Date.', 
+                    'type' => 'warning'));
                     redirect(base_url() . 'application-map/' . $slug);
                 }
                 $session_data = $this->session->userdata('logged_in');
@@ -855,9 +862,11 @@ class Map extends CI_Controller {
                 $login_district = $session_data['login_district'];
                 $form_list_filter = array();
                 foreach ($form_list_posted as $form_entity) {
-                    $form_list_filter[] = array('form_id' => $form_entity, 'table_name' => 'zform_' . $form_entity);
+                    $form_list_filter[] = array('form_id' => $form_entity, 
+                    'table_name' => 'zform_' . $form_entity);
                 }
-                $total_result = $this->form_results_model->return_total_record_map_posted($form_list_filter, $to_date, $from_date);
+                $total_result = $this->form_results_model->
+                return_total_record_map_posted($form_list_filter, $to_date, $from_date);
                 $totalPages = ceil($total_result / $this->perMap);
                 $data['totalPages'] = $totalPages;
                 $filter_date_map = $this->input->post('filter_date_map');
@@ -878,7 +887,8 @@ class Map extends CI_Controller {
 
                 /** for categry listing * */
                 $record_array_final_filter = array();
-                $results_filer_main = $this->form_results_model->get_form_results_filters($form_list_filter, $login_district);
+                $results_filer_main = $this->form_results_model->
+                get_form_results_filters($form_list_filter, $login_district);
                 $app_filters_array = array();
                 $town_array = array();
                 $uc_array = array();
@@ -947,7 +957,8 @@ class Map extends CI_Controller {
                                         $exist_alpha[$first_char] = '1';
                                         $pin_name = $first_char . '1';
                                     }
-                                    $pin_exist_for_cat = array_merge($pin_exist_for_cat, array($valueforarray => $pin_name));
+                                    $pin_exist_for_cat = array_merge($pin_exist_for_cat, 
+                                    array($valueforarray => $pin_name));
                                 } else {
                                     if (array_key_exists($valueforarray, $pin_exist_for_cat)) {
                                         $pin_name = $pin_exist_for_cat[$valueforarray];
@@ -975,7 +986,8 @@ class Map extends CI_Controller {
                 $final_filter_sorted = array();
                 /** sorting array based on key* */
                 foreach ($posted_filters as $key_sorter => $posts) {
-                    $final_filter_sorted[$key_sorter] = $app_filters_array[$key_sorter];
+                    $final_filter_sorted[$key_sorter] = 
+                    $app_filters_array[$key_sorter];
                 }
                 $data['app_filters_array'] = $final_filter_sorted;
                 $town_array[] = asort($town_array);
